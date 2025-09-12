@@ -52,7 +52,7 @@ The main goal is to create a system where:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-knowledge-hub.git
+git clone https://github.com/EneAlexandruC/RAG.git
 cd ai-knowledge-hub
 ```
 
