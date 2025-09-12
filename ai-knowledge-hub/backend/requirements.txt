@@ -1,0 +1,21 @@
+# framework-ul web
+fastapi
+
+# serverul ASGI pentru a rula FastAPI
+uvicorn[standard]
+
+# validarea datelor (modele pentru request/response)
+pydantic
+
+# necesar pentru upload de fisiere
+python-multipart
+
+# acces la API-ul OpenAI (GPT, embeddings)
+openai
+
+# pentru RAG (gestionarea pipeline-urilor AI)
+langchain
+
+# vector database locala (pentru embeddings)
+chromadb
+
