@@ -17,7 +17,7 @@ async def upload_pdf(file: UploadFile = File()):
     file_path = f"{file.filename}"
     res = supabase.storage.from_(SUPABASE_BUCKET).upload(file_path, file_bytes)
 
-    if res.get("error"):
+    if not res:
         raise HTTPException(status_code=500, detail=f"Supabase upload failed: {res['error']}")
     
     # Create a document entry
