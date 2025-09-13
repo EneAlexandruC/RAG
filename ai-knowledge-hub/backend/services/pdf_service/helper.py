@@ -38,9 +38,9 @@ def store_embeddings(document_id, chunks):
             "embedding": embedding.tolist()
         })
 
-    data, error = supabase.table("chunks").insert(rows).execute()
-
-    if error:
-        raise HTTPException(status_code=500, detail=f"Error saving embeddings: {error}")
+    try:
+        supabase.table("chunks").insert(rows).execute()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Supabase insert failed: {str(e)}")
 
     return len(rows)
