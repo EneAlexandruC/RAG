@@ -1,9 +1,40 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
-from services.pdf_service.config import supabase, SUPABASE_BUCKET
-from services.pdf_service.helper import extract_text_from_pdf, chunk_text, store_embeddings
+from fastapi import APIRouter, UploadFile, File, HTTPException, Query
+from services.config import supabase, SUPABASE_BUCKET, client
+from services.pdf_service.helper import *
 from fastapi.responses import JSONResponse
 
 router = APIRouter()
+
+@router.get("/search")
+async def search_pdfs(query = Query(...), top_k: int = 5, document_ids = None):
+    """ Search for relevant chunks in the database then returns the processed message"""
+
+    context_chunks = search_documents(query, top_k, document_ids)
+
+    context_text = "\n".join([chunk["content"] for chunk in context_chunks])
+
+    prompt = f"""
+    Context:
+    {context_text}
+
+    Question: {query}
+    Answer concisely based only on the context.
+    """
+
+    completion = client.chat.completions.create(
+        model="openai/gpt-oss-20b",
+        messages=[{"role": "user", "content": prompt}],
+    )
+
+    answer = completion.choices[0].message.content
+
+    save_qa(query, answer, document_ids)
+
+    return {
+        "question": query,
+        "context_used": context_chunks,
+        "answer": answer
+    } 
 
 @router.post("/upload")
 async def upload_pdf(file: UploadFile = File()):
