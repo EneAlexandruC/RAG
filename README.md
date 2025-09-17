@@ -38,10 +38,10 @@ The main goal is to create a system where:
 
 - **Backend**: Python, FastAPI, Uvicorn
 - **AI Models**: Groq (LLM for QA), HuggingFace Sentence Transformers (for embeddings)
-- **Database / Storage**: ChromaDB (local vector database) or alternative vector DB
+- **Database / Storage**: Supabase - PostgreSQL
 - **Frontend**: React (planned)
 - **Environment**: Python virtual environment (`venv`)
-- **Other Tools**: dotenv for environment variables, Postman for API testing
+- **Other Tools**: dotenv for environment variables, Swagger for API testing
 
 ## Architecture Overview
 
