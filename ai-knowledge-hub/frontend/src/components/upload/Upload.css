@@ -1,0 +1,110 @@
+/* Use the homepage background color (assuming it's #fff or adjust as needed) */
+.upload-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px 32px; 
+    background: #fff; /* Changed from #f8fafc to #fff */
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #f3f4f6; /* Slightly lighter for contrast on white */
+    color: #4f8cff;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 16px;
+    border: 2px solid transparent;
+    box-shadow: 0 1px 4px rgba(79, 140, 255, 0.08);
+    min-width: 160px;
+    text-align: center;
+}
+
+.custom-file-label:hover {
+    background: #e0e7ef;
+    color: #2563eb;
+    border-color: #4f8cff;
+}
+
+.upload-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #22223b;
+    margin-bottom: 0;
+}
+
+.upload-input {
+    margin-bottom: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.upload-file-input[type="file"] {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    font-size: 1rem;
+    color: #22223b;
+    transition: border 0.2s;
+    box-shadow: none;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4f8cff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(79, 140, 255, 0.10);
+    gap: 0.5rem;
+}
+
+.upload-btn:disabled {
+    background: #bfc9d9;
+    cursor: not-allowed;
+}
+
+.upload-btn:hover:not(:disabled) {
+    background: #2563eb;
+    color: #fff;
+}
+
+.upload-status {
+    font-size: 1.08rem;
+    color: #2563eb;
+    min-height: 28px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background 0.3s, color 0.3s;
+    animation: fadeInStatus 0.5s;
+}
+
+@keyframes fadeInStatus {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
