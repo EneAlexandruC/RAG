@@ -1,6 +1,7 @@
 from pypdf import PdfReader
 from services.config import supabase, embedder
-from fastapi import HTTPException
+from fastapi import HTTPException, Query
+from typing import List, Optional
 import numpy as np
 import io
 import ast
@@ -25,7 +26,7 @@ def save_qa(question, answer, document_ids = None):
 def cosine_similarity(vec1, vec2):
     return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
 
-def search_documents(query, top_k = 5, document_ids = None):
+def search_documents(query, top_k = 5, document_ids: Optional[List[str]] = Query(None)):
     """ Search for the most relevant chunks given a text query """
 
     query_embedding = embedder.encode([query])[0]
@@ -33,6 +34,8 @@ def search_documents(query, top_k = 5, document_ids = None):
     sb_query = supabase.table("chunks").select("id, content, embedding, document_id")
 
     if document_ids:
+        if isinstance(document_ids, str):
+            document_ids = [document_ids]
         sb_query = sb_query.in_("document_id", document_ids)
     response = sb_query.execute()
 
