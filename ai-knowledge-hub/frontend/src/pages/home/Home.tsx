@@ -7,18 +7,28 @@ const Home: React.FC = () => {
   >([]);
   const [input, setInput] = useState("");
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim()) {
       setMessages([...messages, { text: input, isUser: true }]);
       setInput("");
 
-      // Simulate AI response
-      setTimeout(() => {
+
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(input)}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
         setMessages((prev) => [
           ...prev,
-          { text: "I'm a simple chatbot. How can I help you?", isUser: false },
+          { text: data.answer, isUser: false },
         ]);
-      }, 1000);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+      }
     }
   };
 
