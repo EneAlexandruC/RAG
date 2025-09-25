@@ -1,4 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Query
+from typing import List, Optional   
 from services.config import supabase, SUPABASE_BUCKET, client
 from services.pdf_service.helper import *
 from fastapi.responses import JSONResponse
@@ -6,7 +7,7 @@ from fastapi.responses import JSONResponse
 router = APIRouter()
 
 @router.get("/search")
-async def search_pdfs(query = Query(...), top_k: int = 5, document_ids = None):
+async def search_pdfs(query = Query(...), top_k: int = 5, document_ids: Optional[List[str]] = Query(None)):
     """ Search for relevant chunks in the database then returns the processed message"""
 
     context_chunks = search_documents(query, top_k, document_ids)
